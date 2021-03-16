@@ -19,24 +19,46 @@
  * @param {string} b
  * @return {boolean}
  */
-var buddyStrings = function(a, b) {
+var buddyStrings = function (a, b) {
+    // 判断如果两个字符串相同，那么就需要有重复的字符
+    if (a === b) {
+        if (isRepeat(a)) return true;
+    }
 
+    // 先找到第一个字符不相同的地方
+    let cur = 0;
+    let len = a.length;
+    while (a[cur] === b[cur] && cur < len) {
+        cur++;
+    }
+
+    // 再找到第二个不相同的位置
+    let sec = cur + 1;
+    while (a[sec] === b[sec] && sec < len) {
+        sec++;
+    }
+
+    // 判断这两个数有没有超出
+    if (cur > len || sec > len || a[cur] !== b[sec] || a[sec] !== b[cur]) {
+        return false;
+    } else {
+        return true;
+    }
 };
 
 /**
  * 判断字符串是否有重复的字母
- * @param {string} str 
+ * @param {string} str
  */
 const isRepeat = (str) => {
-	// 通过 ASCII 编码的差值进行判断计算，也可以使用 set 集合进行计算
-	let ary = new Array(26);
-	for (let i = 0; i < str.length; ++i) {
-		let idx = str[i] - 'a';
-		let len = ary[idx] || 0;
-		len++;
-		if (len > 1) return true;
-	}
-	return false;
-}
+    // 通过 ASCII 编码的差值进行判断计算，也可以使用 set 集合进行计算
+    let obj = {};
+    for (let i = 0; i < str.length; ++i) {
+        let len = obj[str[i]] || 0;
+        len++;
+        obj[str[i]] = len;
+        if (len > 1) return true;
+    }
+    return false;
+};
 // @lc code=end
-
