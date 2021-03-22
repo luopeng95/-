@@ -38,6 +38,11 @@ var buddyStrings = function (a, b) {
         sec++;
     }
 
+    // 判断接下来的部分都是相同的
+    if (a.slice(sec + 1) !== b.slice(sec + 1)) {
+        return false;
+    }
+
     // 判断这两个数有没有超出
     if (cur > len || sec > len || a[cur] !== b[sec] || a[sec] !== b[cur]) {
         return false;

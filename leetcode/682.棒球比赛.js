@@ -20,8 +20,8 @@ var calPoints = function (ops) {
             const first = scores.pop();
             const sec = scores.pop();
             const thir = first + sec;
-            scores.push(first);
             scores.push(sec);
+            scores.push(first);
             scores.push(thir);
         } else if (ops[i] === 'D') {
             const first = scores.pop();
@@ -29,7 +29,17 @@ var calPoints = function (ops) {
             scores.push(first);
             scores.push(newScore);
         } else if (ops[i] === 'C') {
+            scores.pop();
+        } else {
+            scores.push(+ops[i]);
         }
     }
+
+    // 循环结束之后数组就处理完成所有的分数
+    const total = scores.reduce((total, ele) => {
+        return ele + total;
+    });
+
+    return total;
 };
 // @lc code=end
